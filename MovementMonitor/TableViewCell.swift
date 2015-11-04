@@ -14,7 +14,7 @@ class TableViewCell: UITableViewCell {
         self.sound = Sound()
         
         self.toggle = UISwitch(frame: CGRectZero)
-        self.toggle!.on = true
+        self.toggle?.on = true
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -22,19 +22,15 @@ class TableViewCell: UITableViewCell {
     }
     
     override func layoutSubviews() {
-        
-        
-        
         self.setNeedsUpdateConstraints()
     }
 
-    
-    func switchValueDidChange(sender:UISwitch!){
-        if (sender.on == true){
+    func switchValueDidChange(sender:UISwitch!) {
+        if (sender.on == true) {
             self.enabled = true;
             print("button-on \(self.enabled)")
         }
-        else{
+        else {
             self.enabled = false;
             print("button-off \(self.enabled)")
         }

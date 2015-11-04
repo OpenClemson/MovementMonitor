@@ -11,7 +11,6 @@
 		6B66F19A1A96580600220D49 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B66F1991A96580600220D49 /* TableViewController.swift */; };
 		6B96BD421AD43FCD0030D1CC /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B96BD411AD43FCD0030D1CC /* Sound.swift */; };
 		6BB9236F1A6ED39D007F008F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB9236E1A6ED39D007F008F /* AppDelegate.swift */; };
-		6BB923711A6ED39D007F008F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB923701A6ED39D007F008F /* ViewController.swift */; };
 		6BB923761A6ED39D007F008F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BB923751A6ED39D007F008F /* Images.xcassets */; };
 		6BB923791A6ED39D007F008F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BB923771A6ED39D007F008F /* LaunchScreen.xib */; };
 		6BB923851A6ED39D007F008F /* mattscrazyappTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB923841A6ED39D007F008F /* mattscrazyappTests.swift */; };
@@ -37,7 +36,6 @@
 		6BB923691A6ED39D007F008F /* MovementMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovementMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BB9236D1A6ED39D007F008F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6BB9236E1A6ED39D007F008F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6BB923701A6ED39D007F008F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6BB923751A6ED39D007F008F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6BB923781A6ED39D007F008F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		6BB9237E1A6ED39D007F008F /* MovementMonitorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovementMonitorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,7 +90,6 @@
 				6B66F1991A96580600220D49 /* TableViewController.swift */,
 				6BEA2AF91AAF66B300B4307F /* TableViewCell.swift */,
 				6B96BD411AD43FCD0030D1CC /* Sound.swift */,
-				6BB923701A6ED39D007F008F /* ViewController.swift */,
 				6BB923751A6ED39D007F008F /* Images.xcassets */,
 				6BB923771A6ED39D007F008F /* LaunchScreen.xib */,
 				6BB9236C1A6ED39D007F008F /* Supporting Files */,
@@ -295,7 +292,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6BB923711A6ED39D007F008F /* ViewController.swift in Sources */,
 				6BEA2AFA1AAF66B300B4307F /* TableViewCell.swift in Sources */,
 				6B96BD421AD43FCD0030D1CC /* Sound.swift in Sources */,
 				6BB9236F1A6ED39D007F008F /* AppDelegate.swift in Sources */,

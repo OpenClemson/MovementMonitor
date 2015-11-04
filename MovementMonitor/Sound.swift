@@ -1,19 +1,9 @@
-//
-//  AVAudioPlayer.swift
-//  mattscrazyapp
-//
-//  Created by Matt Smith on 4/7/15.
-//  Copyright (c) 2015 Matt Smith. All rights reserved.
-//
-
 import Foundation
 import AVFoundation
 
 class Sound : NSObject {
-    
     /// The player.
-    var avPlayer: AVAudioPlayer! = nil
-    //var avPlayers: [AVAudioPlayer]
+    var avPlayer: AVAudioPlayer?
     
     var trackList = [
         0: "Airdrop Invite",
@@ -118,58 +108,32 @@ class Sound : NSObject {
         99: "VC - End",
         100: "VC - Invitation Accepted",
         101: "VC - Ringing"
-        
     ]
-    
-    override init() {
 
-    }
-    
-    
-    
-    func playSpecifiedURL(inURL: NSURL){
-        var error: NSError?
-        
-        do {
-            self.avPlayer = try AVAudioPlayer(contentsOfURL: inURL)
-        } catch let error1 as NSError {
-            error = error1
-            self.avPlayer = nil
-        }
-        
-        var audioSessionError: NSError?
+    func playSpecifiedURL(inURL: NSURL) {
+        self.avPlayer = try? AVAudioPlayer(contentsOfURL: inURL)
+
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setActive(true)
-        } catch _ {
-        }
-
-        
-        do {
             try audioSession.setCategory(AVAudioSessionCategoryPlayback)
         } catch let error as NSError {
-            audioSessionError = error
-            print("Could not set the audio session")
+            // TODO: alert
+            print(error)
         }
-        
-        self.avPlayer.volume = 1.0
-        self.avPlayer.prepareToPlay()
-        self.avPlayer.play()
-        
+
+        self.avPlayer?.volume = 1.0
+        self.avPlayer?.prepareToPlay()
+        self.avPlayer?.play()
     }
     
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
         print("finished playing \(flag)")
     }
-    
 }
 
 extension Sound : AVAudioPlayerDelegate {
-    
-    
-    
     func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer, error: NSError?) {
-        print("\(error!.localizedDescription)")
+        print("\(error?.localizedDescription)")
     }
-    
 }

@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  mattscrazyapp
-//
-//  Created by Matt Smith on 1/20/15.
-//  Copyright (c) 2015 Matt Smith. All rights reserved.
-//
-
 import UIKit
 import CoreMotion
 import CoreLocation
@@ -15,7 +7,6 @@ import SVProgressHUD
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
-
     var window: UIWindow?
     let sound = Sound()
     let motionManager = CMMotionManager()
@@ -39,27 +30,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         case Accelerometer(CMAccelerometerData)
         case Gyroscope(CMGyroData)
     }
-    
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    // TODO: Use instead of tuple?
+    struct AccelerometerData {
+        let x, y, z: Double
+    }
+
+    func application(
+        application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?
+    ) -> Bool {
         self.window = UIWindow()
         self.window?.frame = UIScreen.mainScreen().bounds
         self.window?.rootViewController = vc
         self.window?.makeKeyAndVisible()
 
         self.becomeFirstResponder()
-        UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
-        
+//        UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
-        
-        
+
         if motionManager.accelerometerAvailable && motionManager.gyroAvailable {
             motionManager.accelerometerUpdateInterval = self.accUpdateInter
             motionManager.gyroUpdateInterval = self.gyroUpdateInter
         }
         
-        // MOVEMENT
+        // MARK: MOVEMENT
         
         motionManager.startAccelerometerUpdates()
         motionManager.startGyroUpdates()
@@ -67,22 +64,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         if motionManager.accelerometerAvailable {
             motionManager.accelerometerUpdateInterval = accUpdateInter
             motionManager.startAccelerometerUpdatesToQueue(NSOperationQueue.mainQueue()) {
-                [weak self] (data, error) in
-                    if (self!.calFlag.0){
-                        
-                        self!.updateAverage( Movement.Accelerometer(data!) )
+                [unowned self] (data, error) in
+                    guard let data = data else {
+                        return
                     }
-                    if (self!.calFlag.2){
-                        let dataNew = self!.toPercent(Movement.Accelerometer(data!))
-                        if(
+
+                    if self.calFlag.0 {
+                        self.updateAverage(Movement.Accelerometer(data))
+                    }
+
+                    if self.calFlag.2 {
+                        let dataNew = self.toPercent(Movement.Accelerometer(data))
+                        if (
                             dataNew.0 > 50 ||
                             dataNew.0 < -50 ||
                             dataNew.0 > 50 ||
                             dataNew.1 > 50 ||
                             dataNew.1 < -50 ||
                             dataNew.1 < -50
-                            ) {
-                                self?.movementFlag = true
+                        ) {
+                            self.movementFlag = true
                         }
                     }
             }
@@ -91,48 +92,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         if motionManager.gyroAvailable {
             motionManager.gyroUpdateInterval = gyroUpdateInter
             motionManager.startGyroUpdatesToQueue(NSOperationQueue.mainQueue()) {
-                [weak self] (data, error) in
-                    if (self!.calFlag.1){
-                        self!.updateAverage( Movement.Gyroscope(data!) )
+                [unowned self] (data, error) in
+                    guard let data = data else {
+                        return
                     }
-                    if (self!.calFlag.2){
-                        
-                        if(
-                            data?.rotationRate.x > 0.1 ||
-                            data?.rotationRate.x < -0.1 ||
-                            data?.rotationRate.y > 0.1 ||
-                            data?.rotationRate.y > 0.1 ||
-                            data?.rotationRate.z < -0.1 ||
-                            data?.rotationRate.z < -0.1
+
+                    if self.calFlag.1 {
+                        self.updateAverage(Movement.Gyroscope(data))
+                    }
+
+                    if self.calFlag.2 {
+                        if (
+                            data.rotationRate.x > 0.1 ||
+                            data.rotationRate.x < -0.1 ||
+                            data.rotationRate.y > 0.1 ||
+                            data.rotationRate.y > 0.1 ||
+                            data.rotationRate.z < -0.1 ||
+                            data.rotationRate.z < -0.1
                         ) {
-                            self?.movementFlag = true
-                            print(self?.movementFlag)
+                            self.movementFlag = true
+                            print(self.movementFlag)
                         }
-                        
                     }
             }
         }
         
         
-        // ALERT
+        // MARK: ALERT
         
         let alertController = UIAlertController(
             title: "Stationary Calibration",
-            message: "Please put the device in the stationary position from which you wish to measure movement",
-            preferredStyle: UIAlertControllerStyle.Alert
+            message: "Please put the device in the position it will be at rest. If the device is on a stand, leave it in the vertical position.",
+            preferredStyle: .Alert
         )
         
         let defAction = UIAlertAction(
-            title: "Device is in stationary position",
-            style: UIAlertActionStyle.Default) { (action) in
-                SVProgressHUD.showWithStatus("Calibrating...", maskType: .Black)
-                self.calFlag.0 = true
-                self.calFlag.1 = true
-                print("-- Calibrating...")
+            title: "Calibrate",
+            style: .Default
+        ) { (action) in
+            SVProgressHUD.showWithStatus("Calibrating...", maskType: .Black)
+            self.calFlag.0 = true
+            self.calFlag.1 = true
+            print("-- Calibrating...")
         }
         
         alertController.addAction(defAction)
-        
         
         self.vc.presentViewController(alertController, animated: true, completion: nil)
         
@@ -145,9 +149,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             print("location started")
             locationManager.startUpdatingLocation()
         default:
+            // TODO: alert
             print("Error: need location as always")
         }
-        
     }
     
     func calibrated(){
@@ -160,7 +164,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         print("\nStarting movement timer...")
         
-        let timer = NSTimer(timeInterval: CHECK_TIME, target: self, selector: "checkForMovement", userInfo: nil, repeats: true)
+        let timer = NSTimer(
+            timeInterval: CHECK_TIME,
+            target: self,
+            selector: "checkForMovement",
+            userInfo: nil,
+            repeats: true
+        )
         NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
         
     }
@@ -168,23 +178,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func toPercent (dataIn: Movement) -> (Double, Double, Double) {
         switch dataIn {
         case .Accelerometer(let acc):
-            (acc.acceleration.x-self.calibratedResults.0.0)/self.calibratedResults.0.0
+            (acc.acceleration.x - self.calibratedResults.0.0) / self.calibratedResults.0.0
             return (
-                (acc.acceleration.x-self.calibratedResults.0.0)/self.calibratedResults.0.0,
-                (acc.acceleration.y-self.calibratedResults.0.1)/self.calibratedResults.0.1,
-                (acc.acceleration.z-self.calibratedResults.0.2)/self.calibratedResults.0.2
+                (acc.acceleration.x - self.calibratedResults.0.0) / self.calibratedResults.0.0,
+                (acc.acceleration.y - self.calibratedResults.0.1) / self.calibratedResults.0.1,
+                (acc.acceleration.z - self.calibratedResults.0.2) / self.calibratedResults.0.2
             )
         case .Gyroscope(let gyro):
             return(
-                (gyro.rotationRate.x-self.calibratedResults.1.0)/self.calibratedResults.1.0*100,
-                (gyro.rotationRate.x-self.calibratedResults.1.1)/self.calibratedResults.1.1*100,
-                (gyro.rotationRate.x-self.calibratedResults.1.2)/self.calibratedResults.1.2*100
+                (gyro.rotationRate.x - self.calibratedResults.1.0) / self.calibratedResults.1.0 * 100,
+                (gyro.rotationRate.x - self.calibratedResults.1.1) / self.calibratedResults.1.1 * 100,
+                (gyro.rotationRate.x - self.calibratedResults.1.2) / self.calibratedResults.1.2 * 100
             )
         }
     }
     
-    func checkForMovement(){
-        if let rowToPlay=self.vc.currentSoundSelected?.row where self.movementFlag {
+    func checkForMovement() {
+        if let rowToPlay = self.vc.currentSoundSelected?.row where self.movementFlag {
             self.vc.playSound(rowToPlay)
         }
         
@@ -208,27 +218,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             ++gyroCount
         }
         
-        if (accCount == divConstant){
-            self.accAverageOverSamples.0 = self.accAverageOverSamples.0/divConstant
-            self.accAverageOverSamples.1 = self.accAverageOverSamples.1/divConstant
-            self.accAverageOverSamples.2 = self.accAverageOverSamples.2/divConstant
+        if (accCount == divConstant) {
+            self.accAverageOverSamples.0 = self.accAverageOverSamples.0 / divConstant
+            self.accAverageOverSamples.1 = self.accAverageOverSamples.1 / divConstant
+            self.accAverageOverSamples.2 = self.accAverageOverSamples.2 / divConstant
             print("ACC AVG DATA: \(self.accAverageOverSamples)")
             
             accCount = 0
             self.calFlag.0 = false
         }
         
-        if (gyroCount == divConstant){
-            self.gyroAverageOverSamples.0 = self.gyroAverageOverSamples.0/divConstant
-            self.gyroAverageOverSamples.1 = self.gyroAverageOverSamples.1/divConstant
-            self.gyroAverageOverSamples.2 = self.gyroAverageOverSamples.2/divConstant
+        if (gyroCount == divConstant) {
+            self.gyroAverageOverSamples.0 = self.gyroAverageOverSamples.0 / divConstant
+            self.gyroAverageOverSamples.1 = self.gyroAverageOverSamples.1 / divConstant
+            self.gyroAverageOverSamples.2 = self.gyroAverageOverSamples.2 / divConstant
             print("GYRO AVG DATA: \(self.gyroAverageOverSamples)")
             
             gyroCount = 0
             self.calFlag.1 = false
         }
         
-        if (!self.calFlag.0 && !self.calFlag.1){
+        if (!self.calFlag.0 && !self.calFlag.1) {
             self.calibratedResults.0 = self.accAverageOverSamples
             self.calibratedResults.1 = self.gyroAverageOverSamples
             
@@ -248,32 +258,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func locationManager(motionManager: CLLocationManager, didFailWithError error: NSError) {
         print("Error:" + error.localizedDescription)
     }
-
-    func applicationWillResignActive(application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-        print("WILL RESIGN ACTIVE")
-    }
-
-    func applicationDidEnterBackground(application: UIApplication) {
-        //println("BACKGROUND DATA: \(motionData)")
-    }
-
-    func applicationWillEnterForeground(application: UIApplication) {
-        // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-        print("WILL ENTER FOREGROUND")
-    }
-
-    func applicationDidBecomeActive(application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        print("DID BECOME ACTIVE")
-    }
-
-    func applicationWillTerminate(application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        //manager.stopGyroUpdates()
-    }
-
-
 }
 
