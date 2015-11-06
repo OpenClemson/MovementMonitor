@@ -15,13 +15,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var vc = TableViewController()
     let gyroUpdateInter: NSTimeInterval = 0.1
     let accUpdateInter: NSTimeInterval = 0.1
-    var accAverageOverSamples: (Double, Double, Double) = (0.0, 0.0, 0.0)
-    var gyroAverageOverSamples: (Double, Double, Double) = (0.0, 0.0, 0.0)
+    var avgOverSamples = MovementComps(
+        acc: XyzComps(x: 0.0, y: 0.0, z: 0.0),
+        gyro: XyzComps(x: 0.0, y: 0.0, z: 0.0)
+    )
     var accCount = 0.0
     var gyroCount = 0.0
     let divConstant = 100.0
     let CHECK_TIME: NSTimeInterval = 1.0
-    var calibratedResults: ( (Double, Double, Double), (Double, Double, Double) ) = ( (0,0,0), (0,0,0) ) // ACC, GYRO
+    var calibratedResults = MovementComps(
+        acc: XyzComps(x: 0.0, y: 0.0, z: 0.0),
+        gyro: XyzComps(x: 0.0, y: 0.0, z: 0.0)
+    )
     var calFlag: (Bool, Bool, Bool) = (false, false, false) // ACC, GYRO, FINISHED CAL
     var movementFlag: Bool = false
     let progress = SVProgressHUD()
@@ -30,11 +35,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         case Accelerometer(CMAccelerometerData)
         case Gyroscope(CMGyroData)
     }
-
-    // TODO: Use instead of tuple?
-    struct AccelerometerData {
-        let x, y, z: Double
+    
+    struct XyzComps {
+        var x, y, z: Double
     }
+    
+    struct MovementComps {
+        var acc, gyro: XyzComps
+    }
+    
 
     func application(
         application: UIApplication,
@@ -149,7 +158,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             print("location started")
             locationManager.startUpdatingLocation()
         default:
-            // TODO: alert
+            let alertController = UIAlertController(
+                title: "Needs Location",
+                message: "This app needs location data in order to properly function in the background.  Please go to privacy settings, and turn on location data for this app, and restart.",
+                preferredStyle: .Alert)
+            
+            self.vc.presentViewController(alertController, animated: true, completion: nil)
             print("Error: need location as always")
         }
     }
@@ -178,17 +192,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func toPercent (dataIn: Movement) -> (Double, Double, Double) {
         switch dataIn {
         case .Accelerometer(let acc):
-            (acc.acceleration.x - self.calibratedResults.0.0) / self.calibratedResults.0.0
+            (acc.acceleration.x - self.calibratedResults.acc.x) / self.calibratedResults.acc.x
             return (
-                (acc.acceleration.x - self.calibratedResults.0.0) / self.calibratedResults.0.0,
-                (acc.acceleration.y - self.calibratedResults.0.1) / self.calibratedResults.0.1,
-                (acc.acceleration.z - self.calibratedResults.0.2) / self.calibratedResults.0.2
+                (acc.acceleration.x - self.calibratedResults.acc.x) / self.calibratedResults.acc.x,
+                (acc.acceleration.y - self.calibratedResults.acc.y) / self.calibratedResults.acc.y,
+                (acc.acceleration.z - self.calibratedResults.acc.z) / self.calibratedResults.acc.z
             )
         case .Gyroscope(let gyro):
             return(
-                (gyro.rotationRate.x - self.calibratedResults.1.0) / self.calibratedResults.1.0 * 100,
-                (gyro.rotationRate.x - self.calibratedResults.1.1) / self.calibratedResults.1.1 * 100,
-                (gyro.rotationRate.x - self.calibratedResults.1.2) / self.calibratedResults.1.2 * 100
+                (gyro.rotationRate.x - self.calibratedResults.gyro.x) / self.calibratedResults.gyro.x * 100,
+                (gyro.rotationRate.x - self.calibratedResults.gyro.y) / self.calibratedResults.gyro.y * 100,
+                (gyro.rotationRate.x - self.calibratedResults.gyro.z) / self.calibratedResults.gyro.z * 100
             )
         }
     }
@@ -204,54 +218,72 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func updateAverage(data: Movement) {
         switch data {
         case .Accelerometer(let acc):
-            self.accAverageOverSamples.0 += acc.acceleration.x
-            self.accAverageOverSamples.1 += acc.acceleration.y
-            self.accAverageOverSamples.2 += acc.acceleration.z
+            self.avgOverSamples.acc.x += acc.acceleration.x
+            self.avgOverSamples.acc.y  += acc.acceleration.y
+            self.avgOverSamples.acc.z += acc.acceleration.z
             
             ++accCount
             
         case .Gyroscope(let gyro):
-            self.gyroAverageOverSamples.0 += gyro.rotationRate.x
-            self.gyroAverageOverSamples.1 += gyro.rotationRate.y
-            self.gyroAverageOverSamples.2 += gyro.rotationRate.z
+            self.avgOverSamples.gyro.x += gyro.rotationRate.x
+            self.avgOverSamples.gyro.y += gyro.rotationRate.y
+            self.avgOverSamples.gyro.z += gyro.rotationRate.z
             
             ++gyroCount
         }
         
         if (accCount == divConstant) {
-            self.accAverageOverSamples.0 = self.accAverageOverSamples.0 / divConstant
-            self.accAverageOverSamples.1 = self.accAverageOverSamples.1 / divConstant
-            self.accAverageOverSamples.2 = self.accAverageOverSamples.2 / divConstant
-            print("ACC AVG DATA: \(self.accAverageOverSamples)")
+            self.avgOverSamples.acc.x = self.avgOverSamples.acc.x / divConstant
+            self.avgOverSamples.acc.y = self.avgOverSamples.acc.y / divConstant
+            self.avgOverSamples.acc.z = self.avgOverSamples.acc.z / divConstant
+            print("ACC AVG DATA: \(self.avgOverSamples.acc)")
             
             accCount = 0
             self.calFlag.0 = false
         }
         
         if (gyroCount == divConstant) {
-            self.gyroAverageOverSamples.0 = self.gyroAverageOverSamples.0 / divConstant
-            self.gyroAverageOverSamples.1 = self.gyroAverageOverSamples.1 / divConstant
-            self.gyroAverageOverSamples.2 = self.gyroAverageOverSamples.2 / divConstant
-            print("GYRO AVG DATA: \(self.gyroAverageOverSamples)")
+            self.avgOverSamples.gyro.x = self.avgOverSamples.gyro.x / divConstant
+            self.avgOverSamples.gyro.y = self.avgOverSamples.gyro.y / divConstant
+            self.avgOverSamples.gyro.z = self.avgOverSamples.gyro.z / divConstant
+            print("GYRO AVG DATA: \(self.avgOverSamples.gyro)")
             
             gyroCount = 0
             self.calFlag.1 = false
         }
         
         if (!self.calFlag.0 && !self.calFlag.1) {
-            self.calibratedResults.0 = self.accAverageOverSamples
-            self.calibratedResults.1 = self.gyroAverageOverSamples
+            self.calibratedResults.acc = self.avgOverSamples.acc
+            self.calibratedResults.gyro = self.avgOverSamples.gyro
             
-            self.accAverageOverSamples.0 = 0.0
-            self.accAverageOverSamples.1 = 0.0
-            self.accAverageOverSamples.2 = 0.0
+            self.avgOverSamples.acc.x = 0.0
+            self.avgOverSamples.acc.y = 0.0
+            self.avgOverSamples.acc.z = 0.0
             
-            self.gyroAverageOverSamples.0 = 0.0
-            self.gyroAverageOverSamples.1 = 0.0
-            self.gyroAverageOverSamples.2 = 0.0
+            self.avgOverSamples.gyro.x = 0.0
+            self.avgOverSamples.gyro.y = 0.0
+            self.avgOverSamples.gyro.z = 0.0
             
             self.calibrated()
         }
+    }
+    
+    func cannotMakeSoundErrorAlert(){
+        let alertController = UIAlertController(
+            title: "Cannot Create Audio Session",
+            message: "This app encountered an error and needs to be restarted.",
+            preferredStyle: .Alert)
+        
+            self.vc.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func cannotFindSystemSoundErrorAlert(){
+        let alertController = UIAlertController(
+            title: "Cannot Find System Sounds",
+            message: "This app encountered an error and needs to be restarted.",
+            preferredStyle: .Alert)
+        
+        self.vc.presentViewController(alertController, animated: true, completion: nil)
     }
     
     

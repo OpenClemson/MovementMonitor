@@ -25,7 +25,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let fileManager = NSFileManager.defaultManager()
         guard let enumerator = fileManager.enumeratorAtPath("/System/Library/Audio/UISounds") else {
-            // TODO: alert?
+            AppDelegate.cannotFindSystemSoundErrorAlert()
             return
         }
         
