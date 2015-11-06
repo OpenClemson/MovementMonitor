@@ -1,8 +1,10 @@
-import Foundation
 import AVFoundation
+import UIKit
 
 class Sound : NSObject {
-    /// The player.
+    weak var app = UIApplication.sharedApplication().delegate as? AppDelegate
+
+    // The player.
     var avPlayer: AVAudioPlayer?
     
     var trackList = [
@@ -120,6 +122,7 @@ class Sound : NSObject {
         } catch let error as NSError {
 //            print("OH SNAP")
 //            print(error)
+
         }
 
         self.avPlayer?.volume = 1.0

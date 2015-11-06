@@ -43,7 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     struct MovementComps {
         var acc, gyro: XyzComps
     }
-    
 
     func application(
         application: UIApplication,
@@ -55,7 +54,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         self.window?.makeKeyAndVisible()
 
         self.becomeFirstResponder()
-//        UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
 
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
@@ -125,7 +123,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                     }
             }
         }
-        
         
         // MARK: ALERT
         
@@ -268,24 +265,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
     }
     
-    func cannotMakeSoundErrorAlert(){
+    func cannotMakeSoundErrorAlert() {
         let alertController = UIAlertController(
             title: "Cannot Create Audio Session",
             message: "This app encountered an error and needs to be restarted.",
-            preferredStyle: .Alert)
-        
-            self.vc.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
-    func cannotFindSystemSoundErrorAlert(){
-        let alertController = UIAlertController(
-            title: "Cannot Find System Sounds",
-            message: "This app encountered an error and needs to be restarted.",
-            preferredStyle: .Alert)
+            preferredStyle: .Alert
+        )
         
         self.vc.presentViewController(alertController, animated: true, completion: nil)
     }
     
+    func cannotFindSystemSoundErrorAlert() {
+        let alertController = UIAlertController(
+            title: "Cannot Find System Sounds",
+            message: "This app encountered an error and needs to be restarted.",
+            preferredStyle: .Alert
+        )
+        
+        self.vc.presentViewController(alertController, animated: true, completion: nil)
+    }
     
     func locationManager(motionManager: CLLocationManager, didFailWithError error: NSError) {
         print("Error:" + error.localizedDescription)

@@ -12,6 +12,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     let directoryURL = NSURL(string: "/System/Library/Audio/UISounds")!
     var currentSoundSelected: NSIndexPath?
     let sound = Sound()
+    weak var app = UIApplication.sharedApplication().delegate as? AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +26,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let fileManager = NSFileManager.defaultManager()
         guard let enumerator = fileManager.enumeratorAtPath("/System/Library/Audio/UISounds") else {
-            AppDelegate.cannotFindSystemSoundErrorAlert()
+            app?.cannotFindSystemSoundErrorAlert()
             return
         }
         
