@@ -118,8 +118,8 @@ class Sound : NSObject {
             try audioSession.setActive(true)
             try audioSession.setCategory(AVAudioSessionCategoryPlayback)
         } catch let error as NSError {
-            // TODO: alert
-            print(error)
+//            print("OH SNAP")
+//            print(error)
         }
 
         self.avPlayer?.volume = 1.0

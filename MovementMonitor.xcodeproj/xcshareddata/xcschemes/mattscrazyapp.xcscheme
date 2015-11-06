@@ -52,6 +52,16 @@
                ReferencedContainer = "container:Robot Noise App.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6BB9237D1A6ED39D007F008F"
+               BuildableName = "MovementMonitorTests.xctest"
+               BlueprintName = "MovementMonitorTests"
+               ReferencedContainer = "container:MovementMonitor.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
