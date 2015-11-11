@@ -119,7 +119,7 @@ class Sound : NSObject {
         do {
             try audioSession.setActive(true)
             try audioSession.setCategory(AVAudioSessionCategoryPlayback)
-        } catch let error as NSError {
+        } catch let _ as NSError {
 //            print("OH SNAP")
 //            print(error)
 
