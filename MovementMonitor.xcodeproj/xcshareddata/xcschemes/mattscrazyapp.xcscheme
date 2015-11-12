@@ -67,7 +67,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6BB923681A6ED39D007F008F"
-            BuildableName = "MovementMonitor.app"
+            BuildableName = "RoboMonitor.app"
             BlueprintName = "MovementMonitor"
             ReferencedContainer = "container:MovementMonitor.xcodeproj">
          </BuildableReference>
@@ -90,7 +90,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6BB923681A6ED39D007F008F"
-            BuildableName = "MovementMonitor.app"
+            BuildableName = "RoboMonitor.app"
             BlueprintName = "MovementMonitor"
             ReferencedContainer = "container:MovementMonitor.xcodeproj">
          </BuildableReference>
@@ -109,7 +109,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6BB923681A6ED39D007F008F"
-            BuildableName = "MovementMonitor.app"
+            BuildableName = "RoboMonitor.app"
             BlueprintName = "MovementMonitor"
             ReferencedContainer = "container:MovementMonitor.xcodeproj">
          </BuildableReference>
