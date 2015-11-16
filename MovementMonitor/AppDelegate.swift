@@ -157,7 +157,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         default:
             let alertController = UIAlertController(
                 title: "Needs Location",
-                message: "This app needs location data in order to properly function in the background.  Please go to privacy settings, and turn on location data for this app, and restart.",
+                message: "This app needs location data in order to properly function in the background.  Please go to privacy settings, turn on location data for this app, and restart.",
                 preferredStyle: .Alert)
             
             self.vc.presentViewController(alertController, animated: true, completion: nil)
@@ -165,7 +165,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
     }
     
-    func calibrated(){
+    func calibrated() {
         print("-- Calibrated.  Results:  ----------")
         print("CAL RESULTS: \(self.calibratedResults)")
         
@@ -189,14 +189,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func toPercent (dataIn: Movement) -> (Double, Double, Double) {
         switch dataIn {
         case .Accelerometer(let acc):
-            (acc.acceleration.x - self.calibratedResults.acc.x) / self.calibratedResults.acc.x
             return (
                 (acc.acceleration.x - self.calibratedResults.acc.x) / self.calibratedResults.acc.x,
                 (acc.acceleration.y - self.calibratedResults.acc.y) / self.calibratedResults.acc.y,
                 (acc.acceleration.z - self.calibratedResults.acc.z) / self.calibratedResults.acc.z
             )
         case .Gyroscope(let gyro):
-            return(
+            return (
                 (gyro.rotationRate.x - self.calibratedResults.gyro.x) / self.calibratedResults.gyro.x * 100,
                 (gyro.rotationRate.x - self.calibratedResults.gyro.y) / self.calibratedResults.gyro.y * 100,
                 (gyro.rotationRate.x - self.calibratedResults.gyro.z) / self.calibratedResults.gyro.z * 100
