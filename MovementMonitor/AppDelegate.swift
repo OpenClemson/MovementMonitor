@@ -57,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
+        
 
         if motionManager.accelerometerAvailable && motionManager.gyroAvailable {
             motionManager.accelerometerUpdateInterval = self.accUpdateInter
@@ -145,6 +146,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         alertController.addAction(defAction)
         
         self.vc.presentViewController(alertController, animated: true, completion: nil)
+        
+//        self.vc.label.text = "RoboMonitor: Please select a sound."
         
         return true
     }
