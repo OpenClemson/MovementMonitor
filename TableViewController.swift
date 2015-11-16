@@ -40,6 +40,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewWillLayoutSubviews() {
         if let tv = self.tableView {
             label = UILabel(frame: CGRectMake(20, 75, 700, 21))
+            label.text = "RoboMonitor: Please Select a Sound"
             self.view.addSubview(label)
             self.view.addSubview(tv)
 
