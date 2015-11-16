@@ -7,7 +7,6 @@ import CoreLocation
 class TableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var tableView: UITableView?
     let locationManager = CLLocationManager()
-    var label: UILabel!
     var audioFileList = NSMutableArray()
     let directoryURL = NSURL(string: "/System/Library/Audio/UISounds")!
     var currentSoundSelected: NSIndexPath?
@@ -39,15 +38,10 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewWillLayoutSubviews() {
         if let tv = self.tableView {
-            label = UILabel(frame: CGRectMake(20, 75, 700, 21))
-            label.text = "RoboMonitor: Please Select a Sound"
-            self.view.addSubview(label)
-            self.view.addSubview(tv)
+            view.addSubview(tv)
 
-            constrain(self.view, tv) { view, tableView in
-                tableView.width == view.width;
-                tableView.top == view.top + 100;
-                tableView.bottom == view.bottom - 75;
+            constrain(view, tv) { view, tableView in
+                tableView.edges == view.edges
             }
         }
     }
@@ -86,7 +80,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.currentSoundSelected = indexPath
         
         if let rowSelected = sound.trackList[indexPath.row] {
-            self.label?.text = "Selected Sound: \(rowSelected)"
+            self.navigationItem.title = "Selected Sound: \(rowSelected)"
         }
         
         self.playSound(indexPath.row)

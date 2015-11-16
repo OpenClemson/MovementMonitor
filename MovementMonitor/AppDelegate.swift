@@ -8,11 +8,13 @@ import SVProgressHUD
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
     var window: UIWindow?
+    var navigationController: UINavigationController!
+    var vc: TableViewController!
+
     let sound = Sound()
     let motionManager = CMMotionManager()
     let locationManager = CLLocationManager()
     let queue = NSOperationQueue.mainQueue
-    var vc = TableViewController()
     let gyroUpdateInter: NSTimeInterval = 0.1
     let accUpdateInter: NSTimeInterval = 0.1
     var avgOverSamples = MovementComps(
@@ -48,12 +50,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?
     ) -> Bool {
-        self.window = UIWindow()
-        self.window?.frame = UIScreen.mainScreen().bounds
-        self.window?.rootViewController = vc
-        self.window?.makeKeyAndVisible()
+        window = UIWindow()
+        window?.frame = UIScreen.mainScreen().bounds
+        vc = TableViewController()
+        navigationController = UINavigationController(rootViewController: vc)
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
 
-        self.becomeFirstResponder()
+        becomeFirstResponder()
 
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
@@ -145,9 +149,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         alertController.addAction(defAction)
         
-        self.vc.presentViewController(alertController, animated: true, completion: nil)
-        
-//        self.vc.label.text = "RoboMonitor: Please select a sound."
+        navigationController.presentViewController(alertController, animated: true, completion: nil)
+        vc.navigationItem.title = "Select a Sound"
         
         return true
     }
@@ -163,7 +166,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                 message: "This app needs location data in order to properly function in the background.  Please go to privacy settings, turn on location data for this app, and restart.",
                 preferredStyle: .Alert)
             
-            self.vc.presentViewController(alertController, animated: true, completion: nil)
+            navigationController.presentViewController(alertController, animated: true, completion: nil)
             print("Error: need location as always")
         }
     }
@@ -274,7 +277,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             preferredStyle: .Alert
         )
         
-        self.vc.presentViewController(alertController, animated: true, completion: nil)
+        navigationController.presentViewController(alertController, animated: true, completion: nil)
     }
     
     func cannotFindSystemSoundErrorAlert() {
@@ -284,7 +287,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             preferredStyle: .Alert
         )
         
-        self.vc.presentViewController(alertController, animated: true, completion: nil)
+        navigationController.presentViewController(alertController, animated: true, completion: nil)
     }
     
     func locationManager(motionManager: CLLocationManager, didFailWithError error: NSError) {

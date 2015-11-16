@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15C40a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="XR7-o4-4Ii">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15C40a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="0Ge-BJ-l3H">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
-        <scene sceneID="7hi-P1-5WJ">
+        <!--Select a Sound-->
+        <scene sceneID="CLY-Lm-Dwm">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tVM-ar-oKb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="XR7-o4-4Ii" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="CsO-Az-XvG">
+                <tableViewController id="E6q-5N-ibP" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="d91-jx-efE">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="mLU-2n-xKC">
-                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Zes-Q7-BNI">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mLU-2n-xKC" id="IGR-UT-09c">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zes-Q7-BNI" id="RRs-5k-870">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <animations/>
                                 </tableViewCellContentView>
@@ -28,13 +27,32 @@
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="XR7-o4-4Ii" id="N9a-QP-k8q"/>
-                            <outlet property="delegate" destination="XR7-o4-4Ii" id="Uq2-w4-Sav"/>
+                            <outlet property="dataSource" destination="E6q-5N-ibP" id="iea-nX-yva"/>
+                            <outlet property="delegate" destination="E6q-5N-ibP" id="Udd-v9-bDH"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Select a Sound" id="aek-9R-0p6"/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hB8-Kr-Q7P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="455" y="339"/>
+            <point key="canvasLocation" x="1028" y="286"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="17R-XZ-V5h">
+            <objects>
+                <navigationController id="0Ge-BJ-l3H" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aJa-Yf-dJ6">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="E6q-5N-ibP" kind="relationship" relationship="rootViewController" id="ffQ-gT-twN"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vLS-wD-You" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="208" y="285"/>
         </scene>
     </scenes>
 </document>
