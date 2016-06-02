@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		03A8DAB970A9D72D184DEF45 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B392F00A1547D474DCF1A74 /* Pods.framework */; };
 		6B66F19A1A96580600220D49 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B66F1991A96580600220D49 /* TableViewController.swift */; };
 		6B96BD421AD43FCD0030D1CC /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B96BD411AD43FCD0030D1CC /* Sound.swift */; };
 		6BB9236F1A6ED39D007F008F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB9236E1A6ED39D007F008F /* AppDelegate.swift */; };
 		6BB923761A6ED39D007F008F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BB923751A6ED39D007F008F /* Images.xcassets */; };
 		6BB923851A6ED39D007F008F /* mattscrazyappTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB923841A6ED39D007F008F /* mattscrazyappTests.swift */; };
 		6BEA2AFA1AAF66B300B4307F /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BEA2AF91AAF66B300B4307F /* TableViewCell.swift */; };
+		802E618DD99CBA4F5A45904B /* Pods_MovementMonitor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5B832DE05E16F122D8D012 /* Pods_MovementMonitor.framework */; };
 		8487CEB01BF9F9AA0001419A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8487CEAE1BF9F9AA0001419A /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -28,9 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E5B832DE05E16F122D8D012 /* Pods_MovementMonitor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovementMonitor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B392F00A1547D474DCF1A74 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2FC287D51CCC083461E7EE42 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		60BC485937E774C443DB82A1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		6B66F1991A96580600220D49 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewController.swift; path = ../TableViewController.swift; sourceTree = "<group>"; };
 		6B96BD411AD43FCD0030D1CC /* Sound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		6BB923691A6ED39D007F008F /* RoboMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoboMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -42,6 +41,8 @@
 		6BB923841A6ED39D007F008F /* mattscrazyappTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mattscrazyappTests.swift; sourceTree = "<group>"; };
 		6BEA2AF91AAF66B300B4307F /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		8487CEAF1BF9F9AA0001419A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DB20A4B76447AB03669B243F /* Pods-MovementMonitor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovementMonitor.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MovementMonitor/Pods-MovementMonitor.debug.xcconfig"; sourceTree = "<group>"; };
+		E56D72599B5A11495BBBA3BA /* Pods-MovementMonitor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovementMonitor.release.xcconfig"; path = "Pods/Target Support Files/Pods-MovementMonitor/Pods-MovementMonitor.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,7 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03A8DAB970A9D72D184DEF45 /* Pods.framework in Frameworks */,
+				802E618DD99CBA4F5A45904B /* Pods_MovementMonitor.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,14 +64,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		15DA0CCB9A96A4C89D740FDC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DB20A4B76447AB03669B243F /* Pods-MovementMonitor.debug.xcconfig */,
+				E56D72599B5A11495BBBA3BA /* Pods-MovementMonitor.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		6BB923601A6ED39D007F008F = {
 			isa = PBXGroup;
 			children = (
 				6BB9236B1A6ED39D007F008F /* MovementMonitor */,
 				6BB923811A6ED39D007F008F /* MovementMonitorTests */,
 				6BB9236A1A6ED39D007F008F /* Products */,
-				869DFFEF5EE5367C6B23B884 /* Pods */,
 				AF1612567E7443460DB3ED8F /* Frameworks */,
+				15DA0CCB9A96A4C89D740FDC /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -122,19 +132,11 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		869DFFEF5EE5367C6B23B884 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				2FC287D51CCC083461E7EE42 /* Pods.debug.xcconfig */,
-				60BC485937E774C443DB82A1 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		AF1612567E7443460DB3ED8F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				1B392F00A1547D474DCF1A74 /* Pods.framework */,
+				0E5B832DE05E16F122D8D012 /* Pods_MovementMonitor.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -146,12 +148,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6BB923881A6ED39D007F008F /* Build configuration list for PBXNativeTarget "MovementMonitor" */;
 			buildPhases = (
-				813DC6FE5DD4B2DEC7E6D3FD /* Check Pods Manifest.lock */,
+				077F72C99D94BF4DB91BBCCE /* 📦 Check Pods Manifest.lock */,
 				6BB923651A6ED39D007F008F /* Sources */,
 				6BB923661A6ED39D007F008F /* Frameworks */,
 				6BB923671A6ED39D007F008F /* Resources */,
-				101371F989C09EF3B30C38FE /* Embed Pods Frameworks */,
-				F12CF7DFD095285B272EF9A4 /* Copy Pods Resources */,
+				C2C1D430078C1DFD1D72B620 /* 📦 Embed Pods Frameworks */,
+				E9544AF563CD3BF246F09B5A /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -240,29 +242,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		101371F989C09EF3B30C38FE /* Embed Pods Frameworks */ = {
+		077F72C99D94BF4DB91BBCCE /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		813DC6FE5DD4B2DEC7E6D3FD /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -270,19 +257,34 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		F12CF7DFD095285B272EF9A4 /* Copy Pods Resources */ = {
+		C2C1D430078C1DFD1D72B620 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MovementMonitor/Pods-MovementMonitor-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E9544AF563CD3BF246F09B5A /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MovementMonitor/Pods-MovementMonitor-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -415,12 +417,13 @@
 		};
 		6BB923891A6ED39D007F008F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2FC287D51CCC083461E7EE42 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = DB20A4B76447AB03669B243F /* Pods-MovementMonitor.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/MovementMonitor/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.clemson.robomonitor;
 				PRODUCT_NAME = RoboMonitor;
@@ -430,12 +433,13 @@
 		};
 		6BB9238A1A6ED39D007F008F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 60BC485937E774C443DB82A1 /* Pods.release.xcconfig */;
+			baseConfigurationReference = E56D72599B5A11495BBBA3BA /* Pods-MovementMonitor.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				INFOPLIST_FILE = "$(SRCROOT)/MovementMonitor/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.clemson.robomonitor;
 				PRODUCT_NAME = RoboMonitor;

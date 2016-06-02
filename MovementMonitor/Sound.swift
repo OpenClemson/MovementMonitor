@@ -7,6 +7,13 @@ class Sound : NSObject {
     // The player.
     var avPlayer: AVAudioPlayer?
     
+    
+    /* Note***
+        If you need to add an alert, check TableViewController and see the comments
+        Under Ryan Auger 6/2/2016
+ 
+ 
+    */
     var trackList = [
         0: "Airdrop Invite",
         1: "Calendar Alert Chord",
@@ -16,7 +23,7 @@ class Sound : NSObject {
         5: "SMS Alert - Aurora",
         6: "SMS Alert - Bamboo",
         7: "SMS Alert - Circles",
-        8: "SMS Alert - Circles",
+        8: "SMS Alert - Circles2",
         9: "SMS Alert - Complete",
         10: "SMS Alert - Hello",
         11: "SMS Alert - Input",
@@ -111,7 +118,8 @@ class Sound : NSObject {
         100: "VC - Invitation Accepted",
         101: "VC - Ringing"
     ]
-
+    
+    
     func playSpecifiedURL(inURL: NSURL) {
         self.avPlayer = try? AVAudioPlayer(contentsOfURL: inURL)
 
