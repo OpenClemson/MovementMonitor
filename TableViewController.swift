@@ -13,9 +13,13 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     let sound = Sound()
     weak var app = UIApplication.sharedApplication().delegate as? AppDelegate
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        
+        
         self.tableView = UITableView(frame: CGRectZero, style: .Grouped)
         self.tableView?.translatesAutoresizingMaskIntoConstraints = false
         self.tableView?.delegate = self
@@ -47,12 +51,33 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return audioFileList.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = sound.trackList[indexPath.row]
+        
+        /*
+            Ryan Auger 6/2/2016
+            Added so that the duplication of "circles" would be ignored.
+         
+            The cells, starting after the first "circles", will be populated by the 
+            trackList one above it, basically skipping the second circles.
+         
+            If another item is added, the value of repeated alert will need to be changed, and a new 
+            if statement will need to be added
+ 
+        */
+        var repeated_alert = 8;
+        repeated_alert -= 1;
+        if(indexPath.row > repeated_alert){
+        
+            cell.textLabel?.text = sound.trackList[indexPath.row + 1]
+        } else {
+            cell.textLabel?.text = sound.trackList[indexPath.row]
+        }
+        
         
         if self.currentSoundSelected == indexPath.row {
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
