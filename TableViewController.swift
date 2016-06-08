@@ -31,9 +31,15 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         
         while let element = enumerator.nextObject() as? String {
-            if element.hasSuffix("caf") {
+            if sound.trackList[element] != nil {
+                debugPrint("Found a match!")
+                debugPrint("Filename: \(element)")
+                debugPrint("Human name: \(sound.trackList[element])")
                 audioFileList.addObject(element)
             }
+//            if element.hasSuffix("caf") {
+//                audioFileList.addObject(element)
+//            }
         }
     }
     
@@ -72,9 +78,11 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
 //        
 //            cell.textLabel?.text = sound.trackList[indexPath.row + 1]
 //        } else {
-            cell.textLabel?.text = sound.trackList[indexPath.row]
+//            cell.textLabel?.text = sound.trackList[indexPath.row]
 //        }
 //        
+        cell.textLabel?.text = sound.trackList[self.audioFileList[indexPath.row] as! String]
+        
         
         if self.currentSoundSelected == indexPath.row {
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
@@ -101,7 +109,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell?.accessoryType = .Checkmark
         self.currentSoundSelected = indexPath
         
-        if let rowSelected = sound.trackList[indexPath.row] {
+        if let rowSelected = sound.trackList[self.audioFileList[indexPath.row] as! String] {
             self.navigationItem.title = "Selected Sound: \(rowSelected)"
         }
         
