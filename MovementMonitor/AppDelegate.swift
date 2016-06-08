@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?
     ) -> Bool {
-                window = UIWindow()
+        window = UIWindow()
         window?.frame = UIScreen.mainScreen().bounds
         vc = TableViewController()
         navigationController = UINavigationController(rootViewController: vc)

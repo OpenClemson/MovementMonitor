@@ -11,9 +11,8 @@ class Sound : NSObject {
     /* Note***
         If you need to add an alert, check TableViewController and see the comments
         Under Ryan Auger 6/2/2016
- 
- 
     */
+    
     var trackList = [
         0: "Airdrop Invite",
         1: "Calendar Alert Chord",
@@ -65,7 +64,7 @@ class Sound : NSObject {
         47: "Busy Tone 2",
         48: "Call Waiting 1",
         49: "Call Waiting 2",
-        50: "Conect Power",
+        50: "Connect Power",
         51: "Busy",
         52: "Call Waiting",
         53: "Congestion",

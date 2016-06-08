@@ -17,9 +17,6 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-        
-        
         self.tableView = UITableView(frame: CGRectZero, style: .Grouped)
         self.tableView?.translatesAutoresizingMaskIntoConstraints = false
         self.tableView?.delegate = self
@@ -69,15 +66,15 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             if statement will need to be added
  
         */
-        var repeated_alert = 8;
-        repeated_alert -= 1;
-        if(indexPath.row > repeated_alert){
-        
-            cell.textLabel?.text = sound.trackList[indexPath.row + 1]
-        } else {
+//        var repeated_alert = 8;
+//        repeated_alert -= 1;
+//        if(indexPath.row > repeated_alert){
+//        
+//            cell.textLabel?.text = sound.trackList[indexPath.row + 1]
+//        } else {
             cell.textLabel?.text = sound.trackList[indexPath.row]
-        }
-        
+//        }
+//        
         
         if self.currentSoundSelected == indexPath.row {
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
