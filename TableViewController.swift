@@ -13,6 +13,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     let sound = Sound()
     weak var app = UIApplication.sharedApplication().delegate as? AppDelegate
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,13 +29,21 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             app?.cannotFindSystemSoundErrorAlert()
             return
         }
+        sound.maketrackList()   //Will combine the list of files and human readable names
         
+
         while let element = enumerator.nextObject() as? String {
-            if element.hasSuffix("caf") {
+            if ((sound.trackList[element]?.hasSuffix("caf")) != nil) {
+//                debugPrint("Found a match!")
+//                debugPrint("Filename: \(element)")
+//                debugPrint("Human name: \(sound.trackList[element])")
                 audioFileList.addObject(element)
-            }
+           }
+////            if element.hasSuffix("caf") {
+////                audioFileList.addObject(element)
+////            }
         }
-    }
+   }
     
     override func viewWillLayoutSubviews() {
         if let tv = self.tableView {
@@ -47,12 +56,17 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return audioFileList.count
+        return sound.trackList.count
+        //return audioFileList.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = sound.trackList[indexPath.row]
+        
+        
+        //Give the cells Labels according to the newly combined trackList
+        cell.textLabel?.text = sound.trackList[self.audioFileList[indexPath.row] as! String]
+        
         
         if self.currentSoundSelected == indexPath.row {
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
@@ -65,13 +79,13 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("INDEX PATH - \(indexPath) - \(currentSoundSelected)")
+       // print("INDEX PATH - \(indexPath) - \(currentSoundSelected)")
 
         if let
             currentSoundSelected = self.currentSoundSelected,
             uncheckCell = tableView.cellForRowAtIndexPath(currentSoundSelected)
         {
-            print("UNCHECKED SET")
+           // print("UNCHECKED SET")
             uncheckCell.accessoryType = .None
         }
 
@@ -79,12 +93,12 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell?.accessoryType = .Checkmark
         self.currentSoundSelected = indexPath
         
-        if let rowSelected = sound.trackList[indexPath.row] {
+        if let rowSelected = sound.trackList[self.audioFileList[indexPath.row] as! String] {
             self.navigationItem.title = "Selected Sound: \(rowSelected)"
         }
         
         self.playSound(indexPath.row)
-        print("NEW SELECTED - \(currentSoundSelected)")
+        //print("NEW SELECTED - \(currentSoundSelected)")
     }
     
     func playSound(whatToPlay: Int) {
@@ -93,11 +107,11 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         )
         
         if NSFileManager.defaultManager().fileExistsAtPath("\(fileName)") {
-            print("file exists")
+           // print("file exists")
         }
 
         else {
-            print("file doesn't exist, closing")
+            //print("file doesn't exist, closing")
             return
         }
         
