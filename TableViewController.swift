@@ -29,19 +29,12 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             app?.cannotFindSystemSoundErrorAlert()
             return
         }
-        sound.maketrackList()   //Will combine the list of files and human readable names
-        
+                
 
         while let element = enumerator.nextObject() as? String {
             if ((sound.trackList[element]?.hasSuffix("caf")) != nil) {
-//                debugPrint("Found a match!")
-//                debugPrint("Filename: \(element)")
-//                debugPrint("Human name: \(sound.trackList[element])")
                 audioFileList.addObject(element)
            }
-////            if element.hasSuffix("caf") {
-////                audioFileList.addObject(element)
-////            }
         }
    }
     
