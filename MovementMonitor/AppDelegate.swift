@@ -184,7 +184,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let timer = NSTimer(
             timeInterval: CHECK_TIME,
             target: self,
-            selector: "checkForMovement",
+            selector: #selector(AppDelegate.checkForMovement),
             userInfo: nil,
             repeats: true
         )
@@ -224,14 +224,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             self.avgOverSamples.acc.y  += acc.acceleration.y
             self.avgOverSamples.acc.z += acc.acceleration.z
             
-            ++accCount
+            accCount += 1
             
         case .Gyroscope(let gyro):
             self.avgOverSamples.gyro.x += gyro.rotationRate.x
             self.avgOverSamples.gyro.y += gyro.rotationRate.y
             self.avgOverSamples.gyro.z += gyro.rotationRate.z
             
-            ++gyroCount
+            gyroCount += 1
         }
         
         if (accCount == divConstant) {
