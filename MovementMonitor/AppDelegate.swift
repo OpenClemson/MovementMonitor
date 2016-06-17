@@ -6,14 +6,14 @@ import Foundation
 import SVProgressHUD
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var navigationController: UINavigationController!
     var vc: TableViewController!
 
     let sound = Sound()
     let motionManager = CMMotionManager()
-    let locationManager = CLLocationManager()
+//    let locationManager = CLLocationManager()
     let queue = NSOperationQueue.mainQueue
     let gyroUpdateInter: NSTimeInterval = 0.1
     let accUpdateInter: NSTimeInterval = 0.1
@@ -59,8 +59,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
         becomeFirstResponder()
 
-        locationManager.delegate = self
-        locationManager.requestAlwaysAuthorization()
+        //6/17/2016 Removed location settings. Location was used to enable the app to run in the background
+        //Apple no longer allows this, so we have remove it -RPA
+//        locationManager.delegate = self
+//        locationManager.requestAlwaysAuthorization()
         
 
         if motionManager.accelerometerAvailable && motionManager.gyroAvailable {
@@ -155,21 +157,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         return true
     }
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        switch status {
-        case .AuthorizedAlways:
-            print("location started")
-            locationManager.startUpdatingLocation()
-        default:
-            let alertController = UIAlertController(
-                title: "Needs Location",
-                message: "This app needs location data in order to properly function in the background.  Please go to privacy settings, turn on location data for this app, and restart.",
-                preferredStyle: .Alert)
-            
-            navigationController.presentViewController(alertController, animated: true, completion: nil)
-            print("Error: need location as always")
-        }
-    }
+//    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+//        switch status {
+//        case .AuthorizedAlways:
+//            print("location started")
+//            locationManager.startUpdatingLocation()
+//        default:
+//            let alertController = UIAlertController(
+//                title: "Needs Location",
+//                message: "This app needs location data in order to properly function in the background.  Please go to privacy settings, turn on location data for this app, and restart.",
+//                preferredStyle: .Alert)
+//            
+//            navigationController.presentViewController(alertController, animated: true, completion: nil)
+//            print("Error: need location as always")
+//        }
+//    }
     
     func calibrated() {
         print("-- Calibrated.  Results:  ----------")
