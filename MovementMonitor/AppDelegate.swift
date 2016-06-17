@@ -1,19 +1,17 @@
 import UIKit
 import CoreMotion
-import CoreLocation
 import AVFoundation
 import Foundation
 import SVProgressHUD
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var navigationController: UINavigationController!
     var vc: TableViewController!
 
     let sound = Sound()
     let motionManager = CMMotionManager()
-    let locationManager = CLLocationManager()
     let queue = NSOperationQueue.mainQueue
     let gyroUpdateInter: NSTimeInterval = 0.1
     let accUpdateInter: NSTimeInterval = 0.1
@@ -58,10 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         window?.makeKeyAndVisible()
 
         becomeFirstResponder()
-
-        locationManager.delegate = self
-        locationManager.requestAlwaysAuthorization()
-        
 
         if motionManager.accelerometerAvailable && motionManager.gyroAvailable {
             motionManager.accelerometerUpdateInterval = self.accUpdateInter
@@ -155,21 +149,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         return true
     }
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        switch status {
-        case .AuthorizedAlways:
-            print("location started")
-            locationManager.startUpdatingLocation()
-        default:
-            let alertController = UIAlertController(
-                title: "Needs Location",
-                message: "This app needs location data in order to properly function in the background.  Please go to privacy settings, turn on location data for this app, and restart.",
-                preferredStyle: .Alert)
-            
-            navigationController.presentViewController(alertController, animated: true, completion: nil)
-            print("Error: need location as always")
-        }
-    }
     
     func calibrated() {
         print("-- Calibrated.  Results:  ----------")
@@ -290,8 +269,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         navigationController.presentViewController(alertController, animated: true, completion: nil)
     }
     
-    func locationManager(motionManager: CLLocationManager, didFailWithError error: NSError) {
-        print("Error:" + error.localizedDescription)
-    }
 }
 

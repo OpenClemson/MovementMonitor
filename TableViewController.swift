@@ -2,11 +2,9 @@ import UIKit
 import Cartography
 import AVFoundation
 import CoreMotion
-import CoreLocation
 
 class TableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var tableView: UITableView?
-    let locationManager = CLLocationManager()
     var audioFileList = NSMutableArray()
     let directoryURL = NSURL(string: "/System/Library/Audio/UISounds")!
     var currentSoundSelected: NSIndexPath?
