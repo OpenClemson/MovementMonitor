@@ -48,7 +48,6 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sound.trackList.count
-        //return audioFileList.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -70,13 +69,11 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-       // print("INDEX PATH - \(indexPath) - \(currentSoundSelected)")
 
         if let
             currentSoundSelected = self.currentSoundSelected,
             uncheckCell = tableView.cellForRowAtIndexPath(currentSoundSelected)
         {
-           // print("UNCHECKED SET")
             uncheckCell.accessoryType = .None
         }
 
@@ -89,7 +86,6 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         
         self.playSound(indexPath.row)
-        //print("NEW SELECTED - \(currentSoundSelected)")
     }
     
     func playSound(whatToPlay: Int) {
@@ -97,12 +93,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
             audioFileList.objectAtIndex(whatToPlay) as! String
         )
         
-        if NSFileManager.defaultManager().fileExistsAtPath("\(fileName)") {
-           // print("file exists")
-        }
-
-        else {
-            //print("file doesn't exist, closing")
+        if !NSFileManager.defaultManager().fileExistsAtPath("\(fileName)") {
             return
         }
         
